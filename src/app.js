@@ -15,7 +15,7 @@ const addNewVisitor = (vName,vAge,dateOfVisit,timeOfVisit,assistantName,comments
       if (error) {
         throw error;
       }
-      console.log(results);
+      return results;
     }
   );
 };
@@ -41,7 +41,7 @@ const deleteVisitor = (id) => {
       if (error) {
         throw error;
       }
-      console.log('Row deleted');
+      return results;
     }
   );
 };
@@ -53,7 +53,7 @@ const viewVisitor = (id) => {
         throw error;
       }
       const data = results.rows;
-      data.forEach(row => console.log(row));;
+      return data;
     }
   );
 };
@@ -66,8 +66,8 @@ const deleteVisitors = () => {
       if (error) {
         throw error;
       }
-      console.log('All rows deleted');
-      pool.end();
+      return results;
+      
     }
   );
 };
@@ -80,8 +80,8 @@ const updateVisitor = (vid,vName,vAge,dateOfVisit,timeOfVisit,assistantName,comm
       if (error) {
         throw error;
       }
-      console.log('updated');
-      pool.end();
+      return results;
+      
     }
   );
 };
