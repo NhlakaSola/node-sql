@@ -8,8 +8,8 @@ const pool = new Pool({
   database: process.env.DB_DATABASE
 });
 
-const addNewVisitor = (vName,vAge,dateOfVisit,timeOfVisit,assistantName,comments) => {
-  pool.query(
+const addNewVisitor = async (vName,vAge,dateOfVisit,timeOfVisit,assistantName,comments) => {
+  await pool.query(
     'INSERT INTO VISITORS(vName, vAge,dateOfVisit,timeOfVisit,assistantName,comments) VALUES ($1,$2,$3,$4,$5,$6)',
     [vName,vAge,dateOfVisit,timeOfVisit,assistantName,comments],
     (error, results) => {
@@ -22,8 +22,8 @@ const addNewVisitor = (vName,vAge,dateOfVisit,timeOfVisit,assistantName,comments
 };
 
 const listAllVisitors = async() => {
-  pool.query(
-    await 'SELECT * FROM VISITORS',(error, results) => {
+  await pool.query(
+     'SELECT * FROM VISITORS',(error, results) => {
       if (error) {
         throw error;
       }
@@ -36,8 +36,8 @@ const listAllVisitors = async() => {
   );
 };
 
-const deleteVisitor = (id) => {
-  pool.query(
+const deleteVisitor = async (id) => {
+  await pool.query(
     `DELETE FROM VISITORS WHERE vid = $1`,[id],(error, results) => {
       if (error) {
         throw error;
@@ -47,8 +47,8 @@ const deleteVisitor = (id) => {
   );
 };
 
-const viewVisitor = (id) => {
-  pool.query(
+const viewVisitor = async (id) => {
+  await pool.query(
     `SELECT * FROM VISITORS WHERE vid = $1`,[id],(error, results) => {
       if (error) {
         throw error;
@@ -61,8 +61,8 @@ const viewVisitor = (id) => {
 
 
 
-const deleteVisitors = () => {
-  pool.query(
+const deleteVisitors = async () => {
+  await pool.query(
     'DELETE FROM VISITORS',(error, results) => {
       if (error) {
         throw error;
@@ -73,8 +73,8 @@ const deleteVisitors = () => {
   );
 };
 
-const updateVisitor = (vid,vName,vAge,dateOfVisit,timeOfVisit,assistantName,comments) => {
-  pool.query(
+const updateVisitor = async (vid,vName,vAge,dateOfVisit,timeOfVisit,assistantName,comments) => {
+  await pool.query(
     'UPDATE VISITORS SET vName = $1, vAge = $2,dateOfVisit = $3,timeOfVisit=$4,assistantName = $5,comments =$6 WHERE vid = $7',
     [vName,vAge,dateOfVisit,timeOfVisit,assistantName,comments,vid],
     (error, results) => {
@@ -86,6 +86,5 @@ const updateVisitor = (vid,vName,vAge,dateOfVisit,timeOfVisit,assistantName,comm
     }
   );
 };
-
 
 module.exports = {addNewVisitor,updateVisitor,deleteVisitor,deleteVisitors,listAllVisitors,viewVisitor}
