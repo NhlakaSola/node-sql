@@ -1,38 +1,43 @@
-let visit = require('../src/app');
+describe("node sql", ()=>{
+  const {addNewVisitor,listAllVisitors,deleteVisitor,deleteVisitors,viewVisitor,updateVisitor} = require('../src/app')
+  const visitor = {
+		name: 'Nhlakanipho',
+		age: 20,
+		date: new Date('01/08/2000'),
+		time: '08:00:00',
+		assistant: 'Nothile',
+		comments: 'The best'
+  }
 
-describe('Add function ', function(){
-
-  let visitor = visit.addNewVisitor('sthe',22,'2-2-2020','12:00','Skhokho','You the best.');
-  console.log(visitor)
-  it('adds a new visitor', () => {
-    expect(visitor).toBe(results)
+  const newName = "Thabo Mahlaba";
+	const newAge = 55;
   
-  })    
-});
+  it("save data to the visitor table", async ()=>{
+      
+		const newVisitor = await addNewVisitor(
+			visitor.name, 
+			visitor.age, 
+			visitor.date, 
+			visitor.time, 
+			visitor.assistant, 
+			visitor.comments
+    );
+    expect(newVisitor[0].vname).toEqual(visitor.name);
+    expect(newVisitor[0].vage).toEqual(visitor.age);
+		expect(newVisitor[0].dateofvisit).toEqual(visitor.date);
+		expect(newVisitor[0].timeofvisit).toEqual(visitor.time);
+		expect(newVisitor[0].assistantname).toEqual(visitor.assistant);
+		expect(newVisitor[0].comments).toEqual(visitor.comments);
+  })
 
-describe('view function ', function(){
-
-  let visitor = visit.viewVisitor(12);
-  it('views a visitor', () => {
-    expect(visitor).toEqual(results)
+  it('Should get all visitors', async() => {
+		const allVisitors = await listAllVisitors();
+		expect(allVisitors).not.toEqual([]);
+  });
   
-  })    
-});
+  fit('Should delete all visitors', async() => {
+		const allVisitors = await deleteVisitors();
+		expect(allVisitors.rowCount).toEqual(0);
+	});
 
-describe('delete function ', function(){
-
-  let visitor = visit.deleteVisitor(12);
-  it('deletes a visitor', () => {
-    expect(visitor).toEqual(results)
-  
-  })    
-});
-
-describe('update function ', function(){
-
-  let visitor = visit.updateVisitor(18,'Nhlaka',16,'2018-12-01','12:00','Nhlaka','Very bad');
-  it('updates a visitor', () => {
-    expect(visitor).toEqual(results)
-  
-  })    
-});
+})
