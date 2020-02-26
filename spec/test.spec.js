@@ -24,10 +24,10 @@ describe("node sql", ()=>{
     );
     expect(newVisitor[0].vname).toEqual(visitor.name);
     expect(newVisitor[0].vage).toEqual(visitor.age);
-		expect(newVisitor[0].dateofvisit).toEqual(visitor.date);
-		expect(newVisitor[0].timeofvisit).toEqual(visitor.time);
-		expect(newVisitor[0].assistantname).toEqual(visitor.assistant);
-		expect(newVisitor[0].comments).toEqual(visitor.comments);
+	expect(newVisitor[0].dateofvisit).toEqual(visitor.date);
+	expect(newVisitor[0].timeofvisit).toEqual(visitor.time);
+	expect(newVisitor[0].assistantname).toEqual(visitor.assistant);
+	expect(newVisitor[0].comments).toEqual(visitor.comments);
   })
 
   it('Should get all visitors', async() => {
