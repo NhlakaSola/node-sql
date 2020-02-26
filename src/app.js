@@ -3,11 +3,11 @@
 require('dotenv').config();
 const Pool = require("pg").Pool;
 const pool = new Pool({
-  user: "user",
-  host: "localhost",
-  password: "pass",
-  port:5432,
-  database: "db"
+	user: process.env.DB_USER,
+	host: process.env.DB_HOST,
+	password: process.env.DB_PASSWORD,
+	port:process.env.DB_PORT,
+	database: process.env.DB_DATABASE
 });
 
 const addNewVisitor  = async(vName,vAge,dateOfVisit,timeOfVisit,assistantName,comments) =>{
